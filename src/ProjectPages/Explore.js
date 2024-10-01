@@ -7,10 +7,7 @@ const Explore = () => {
     { title: "Overview and Demo", path: "/overview", description: "See the overview and demo of our software innovation." },
     { title: "Design Thinking", path: "/design-thinking", description: "Learn how our innovation fulfills the three Design Thinking principles." },
     { title: "Background Information", path: "/background", description: "Explore background details about the project and its context." },
-    { title: "Team Members", path: "/team", description: "Meet our team members and learn more about us." },
-    { title: "Contact Information", path: "/contact", description: "Get in touch with our team through the contact details provided." },
-    { title: "References", path: "/references", description: "All references and sources used in this project." },
-    { title: "Chalmers Info", path: "/chalmers-info", description: "Chalmers logo and course name with further details." }
+    { title: "References", path: "/references", description: "All references and sources used in this project." }
   ];
 
   return (
