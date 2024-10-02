@@ -4,6 +4,7 @@ import Home from './ProjectPages/Home';
 import Explore from './ProjectPages/Explore';
 import Navbar from './ProjectComponents/NavBar';
 import Overview from './ProjectComponents/Overview';
+import Background from './ProjectComponents/Background';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/overview" element={<Overview />}/>
-       
+        <Route path="/background" element={<Background />}/>
       </Routes>
     </Router>
   );
