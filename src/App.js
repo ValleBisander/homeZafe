@@ -4,8 +4,11 @@ import Home from './ProjectPages/Home';
 import Explore from './ProjectPages/Explore';
 import Navbar from './ProjectComponents/NavBar';
 import Overview from './ProjectComponents/Overview';
+
+import Background from './ProjectComponents/Background';
 import DesignThinking from './ProjectComponents/DesignThinking';
 import References from './ProjectComponents/Refrences';
+
 
 function App() {
   return (
@@ -16,8 +19,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/overview" element={<Overview />}/>
+
+        <Route path="/background" element={<Background />}/>
+
         <Route path="/design-thinking" element={<DesignThinking/>}/>
         <Route path="/references" element={<References/>}/>
+
       </Routes>
     </Router>
   );
