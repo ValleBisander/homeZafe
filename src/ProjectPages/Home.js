@@ -50,8 +50,8 @@ const Home = () => {
 
       {/* Get Started Button */}
       <Button
-        component={Link}  // Use Link from react-router-dom
-        to="/explore"      // Link to the Explore page
+        component={Link}  
+        to="/explore"      
         sx={{
           backgroundColor: '#0058a3',
           color: '#fff',
