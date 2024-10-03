@@ -1,31 +1,36 @@
 import React from 'react';
-import { Box, Icon, Typography } from '@mui/material';
+import {Box, ImageListItem, Typography } from '@mui/material';
+//import ChalmersLogo from 'public/Images/ChalmersLogo.png';
+
 
 const Background = () => {
   return (
     <><Box sx={{ padding: 4 }}>
       <Typography variant="h4">Background information</Typography>
       <Typography variant="body1" sx={{ marginTop: 2 }}>
-        TEK830 Digitilization and AI in practice.
+      <img src="/ChalmersLogo.png" alt="Chalmers Logo" style={{ width: '5%', height: 'auto', marginTop: 16 }} />
+      TEK830 Digitilization and AI in practice.
+      
       </Typography>
       <Typography variant="body1" sx={{ marginTop: 2 }}>
         A Beautiful photo of our group:
       </Typography>
 
-
     </Box>
 
-    <Box sx={{ padding: 4
+    <Box sx={{ padding: 10
      }}>
+      <ImageListItem>
         <img
-          src="\src\ProjectComponents\Images\ChalmersLogo.png" // Replace with your PNG image path
+          src="/Team11Valle.png"// Replace with your PNG image path
           alt="The Team"
           style={{ width: '50%', height: 'auto', marginTop: 16 }} // Styling for responsiveness
         />
+        </ImageListItem>
       </Box>
 
      <></> <Box sx={{ padding: 4 }}>
-      <Typography variant="h4">Our names are: Alfred Pettersson, Valdemar Bisander, Tabita Tengblad, Helena Nguyen and Hannah Tu</Typography>
+      <Typography variant="body1">From left: Helena Nyguyen, Alfred Pettersson: 0735922500, Hannah Tu, Valdemar Bisander, Tabita Tengblad</Typography>
       </Box></>
   );
 };
