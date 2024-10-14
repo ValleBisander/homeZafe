@@ -9,28 +9,28 @@ const DesignThinking = () => {
       </Typography>
 
       <Typography variant="h6" sx={{ marginTop: 2 }}>
-        1. <strong>Empathy: Understanding User Needs</strong>
+        1. <strong>Usability: Prioritizing User Experience and Ease of Use</strong>
       </Typography>
       <Typography variant="body1" sx={{ marginBottom: 2 }}>
-        <em>Home Safe</em> is designed with a deep understanding of users' stress, particularly from work, studies, and daily pressures. 
-        After discussions with our contacts in Japan, we recognized the need for a stress-free home environment. 
-        Our solution uses Smart Home technology to create customized zones for different activities, helping users separate work from leisure and promoting healthier habits—all with minimal effort.
+      Home Zafe’s design revolves around usability. By deeply understanding users’ stress from work, studies, and daily life, we crafted a solution that focuses on creating stress-free, customizable environments. 
+      The Smart Home technology allows users to effortlessly create personalized zones for different activities, ensuring smooth and easy transitions between work and leisure. 
+      This intuitive design enhances the user experience, making it simple to manage well-being with minimal effort.
       </Typography>
 
       <Typography variant="h6" sx={{ marginTop: 2 }}>
-        2. <strong>Ideation: Creative Solutions to Reduce Stress</strong>
+        2. <strong>Viability: A Sustainable and Valuable Solution</strong>
       </Typography>
       <Typography variant="body1" sx={{ marginBottom: 2 }}>
-        We brainstormed ideas, focusing on <strong>controllable home zones</strong> that adjust lighting, sounds, and curtains to create the perfect atmosphere for work, relaxation, or chores. 
-        We also introduced <strong>time-based zones</strong> to help users maintain a healthy routine, like automatically dimming lights at bedtime. Additionally, the app offers <strong>behavioral nudges</strong> to encourage healthier habits, such as reducing screen time and managing noise levels.
+      Our ideation phase focused on creating a solution that would not only meet user needs but also remain viable in the long term. We introduced controllable home zones and behavioral nudges that adjust based on real-time data, creating lasting value by encouraging healthier habits. 
+      The technology is adaptable across different home environments, ensuring wide market relevance and maintaining the potential for further growth and development over time.
       </Typography>
 
       <Typography variant="h6" sx={{ marginTop: 2 }}>
-        3. <strong>Experimentation: Testing and Improving</strong>
+        3. <strong>Feasibility: Real-World Testing and Implementation</strong>
       </Typography>
       <Typography variant="body1">
-        <em>Home Safe</em> is continuously refined through testing and feedback. We gather data from real users to optimize the app, ensuring that smart zones adapt to individual needs. 
-        By analyzing smart home data, such as sleep patterns and screen usage, we aim to provide personalized recommendations that help users lead less stressful, healthier lives.
+      Feasibility is central to the continuous improvement of Home Zafe. By testing the system with real users, we gather critical data to optimize the product. 
+      The technology’s infrastructure supports smart zone adaptation based on real-life conditions, like sleep patterns and screen usage. This feedback loop ensures that the solution can be realistically implemented in homes, making adjustments where necessary to ensure smooth operation and positive outcomes for users.
       </Typography>
     </Box>
   );
