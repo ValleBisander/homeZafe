@@ -6,7 +6,8 @@ const Overview = () => {
     <Box sx={{ padding: 4 }}>
       <Typography variant="h4">Overview and Demo</Typography>
       <Typography variant="body1" sx={{ marginTop: 2 }}>
-        This is the overview and demo of our software innovation.
+      
+        <img src="/PrototypeFigma.png" alt="Prototype Figma" style={{ width: '50%', height: 'auto', marginTop: 16 }} />
       </Typography>
     </Box>
   );

@@ -1,81 +1,65 @@
 import React from 'react';
-import { Button, Typography, Box } from '@mui/material';
+import { Box, Card, CardContent, Typography, IconButton, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
 
-// IKEA-inspired design with sx styling
-const Home = () => {
+const zones = [
+  { name: 'Living Room', color: '#87CEEB', status: 'Focus mode active', icons: [<LightbulbIcon />, <VolumeUpIcon />], path: '/living-room' },
+  { name: 'Kitchen', color: '#98FB98', status: 'Cooking mode', icons: [<AcUnitIcon />], path: '/kitchen' },
+  { name: 'Bathroom', color: '#FFD700', status: 'Relax mode', icons: [<LightbulbIcon />], path: '/bathroom' },
+  { name: 'Gaming Room', color: '#FFD700', status: 'Chill mode', icons: [<VolumeUpIcon />], path: '/gaming-room' },
+  { name: 'Office', color: '#FFB6C1', status: 'Work mode', icons: [<LightbulbIcon />, <AcUnitIcon />], path: '/office' },
+  { name: 'Bedroom', color: '#FF6347', status: 'Sleep mode', icons: [<LightbulbIcon />], path: '/bedroom' },
+];
+
+const HomeScreen = () => {
   return (
     <Box 
-      sx={{
-        backgroundColor: '#f7f7f7',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
+      sx={{ 
+        padding: 4, 
+        backgroundColor: '#f7f7f7', 
+        minHeight: '100vh', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center' 
       }}
     >
-      {/* Hero Image */}
-      <Box
-        component="img"
-        src="https://www.ikea.com/images/home-smart-automation.jpg"
-        alt="Home Automation"
-        sx={{
-          width: '100%',
-          height: 'auto',
-          maxWidth: '1200px',
-          marginBottom: '2rem',
-          borderRadius: '8px',
-        }}
-      />
-
-      {/* Heading */}
-      <Typography 
-        variant="h1" 
-        sx={{
-          color: '#333333',
-          fontSize: '3rem',
-          fontWeight: 700,
-          marginBottom: '1.5rem',
-          fontFamily: 'Verdana, sans-serif',
-        }}
-      >
-        Welcome to IKEA HomeZafe
+      <Typography variant="h4" gutterBottom>
+        HomeZafe
       </Typography>
-
-      {/* Description */}
-      <Typography 
-        variant="body1"
-        sx={{
-          color: '#666666',
-          fontSize: '1.2rem',
-          textAlign: 'center',
-          marginBottom: '2rem',
-          maxWidth: '600px',
-          fontFamily: 'Arial, sans-serif',
-        }}
-      >
-        Automate your home for a stress-free environment. Manage lighting, sound, and 
-        climate control with ease. Create your personal zones for work, relaxation, and sleep.
-      </Typography>
-
-      {/* Get Started Button */}
-      <Button
-        sx={{
-          backgroundColor: '#0058a3',
-          color: '#fff',
-          padding: '12px 24px',
-          fontSize: '1rem',
-          fontWeight: 'bold',
-          borderRadius: '4px',
-          '&:hover': {
-            backgroundColor: '#00417a',
-          },
-        }}
-      >
-        Get Started
-      </Button>
+      
+      <Grid container spacing={2} sx={{ marginTop: 2 }}>
+        {zones.map((zone, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Link to={zone.path} style={{ textDecoration: 'none' }}>
+              <Card 
+                sx={{ backgroundColor: zone.color, color: '#333', borderRadius: 2 }}
+              >
+                <CardContent>
+                  <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                    {zone.name}
+                  </Typography>
+                  <Typography variant="body2" sx={{ marginBottom: 2 }}>
+                    {zone.status}
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1 }}>
+                    {zone.icons.map((icon, idx) => (
+                      <IconButton key={idx} sx={{ color: '#333' }}>
+                        {icon}
+                      </IconButton>
+                    ))}
+                  </Box>
+                </CardContent>
+              </Card>
+            </Link>
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   );
 };
 
-export default Home;
+export default HomeScreen;

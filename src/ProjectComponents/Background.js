@@ -1,6 +1,5 @@
 import React from 'react';
 import {Box, ImageListItem, Typography } from '@mui/material';
-//import ChalmersLogo from 'public/Images/ChalmersLogo.png';
 
 
 const Background = () => {
