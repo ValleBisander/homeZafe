@@ -1,23 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Card, CardContent, Typography, IconButton, Grid, Slider, Button} from '@mui/material';
+import { Box, Card, CardContent, Typography, IconButton, Grid, Slider } from '@mui/material';
 import { Link } from 'react-router-dom';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import NightlightIcon from '@mui/icons-material/Nightlight';  
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded'
+import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
 import LaptopChromebookRoundedIcon from '@mui/icons-material/LaptopChromebookRounded';
+import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
+import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 
 const zones = [
-  { name: 'Living Room', color: '#87CEEB', status: 'Focus mode active', icons: [<LightbulbIcon />, <VolumeUpIcon />], path: '/living-room' },
-  { name: 'Kitchen', color: '#98FB98', status: 'Cooking mode', icons: [<AcUnitIcon />], path: '/kitchen' },
-  { name: 'Bathroom', color: '#FFD700', status: 'Relax mode', icons: [<LightbulbIcon />], path: '/bathroom' },
-  { name: 'Gaming Room', color: '#FFD700', status: 'Chill mode', icons: [<VolumeUpIcon />], path: '/gaming-room' },
-  { name: 'Office', color: '#FFB6C1', status: 'Work mode', icons: [<LightbulbIcon />, <AcUnitIcon />], path: '/office' },
-  { name: 'Bedroom', color: '#FF6347', status: 'Sleep mode', icons: [<LightbulbIcon />], path: '/bedroom' },
+  { name: 'Living Room', color: '#87CEEB', status: 'Focus mode active', path: '/living-room' },
+  { name: 'Kitchen', color: '#98FB98', status: 'Cooking mode', path: '/kitchen' },
+  { name: 'Bathroom', color: '#FFD700', status: 'Relax mode', path: '/bathroom' },
+  { name: 'Gaming Room', color: '#FFD700', status: 'Chill mode', path: '/gaming-room' },
+  { name: 'Office', color: '#FFB6C1', status: 'Work mode', path: '/office' },
+  { name: 'Bedroom', color: '#FF6347', status: 'Sleep mode', path: '/bedroom' },
 ];
 
 const getCurrentTimeOfDay = () => {
@@ -37,7 +35,7 @@ const getBackgroundColor = (timeOfDay) => {
   } else if (timeOfDay === 50) {
     return '#ADD8E6'; // Midday
   } else {
-    return '#4B0082'; // Night
+    return '#00468B'; // Night
   }
 };
 
@@ -51,20 +49,27 @@ const getSuggestionForTimeOfDay = (timeOfDay) => {
   }
 };
 
+// New function to get the song playing message based on time of day
+const getSongPlayingText = (timeOfDay) => {
+  if (timeOfDay === 0) {
+    return 'Now Playing: Feel Good Morning';
+  } else if (timeOfDay === 50) {
+    return 'Now Playing: Jazz Classics';
+  } else {
+    return 'Now Playing: Relaxing Music';
+  }
+};
+
 const HomeScreen = () => {
   const [timeOfDay, setTimeOfDay] = useState(getCurrentTimeOfDay());
-  const [reminder, setReminder] = useState('');
-  const [reminders, setReminders] = useState([]);
+  const [selectedModeIcon, setSelectedModeIcon] = useState(null);
 
   const handleSliderChange = (event, newValue) => {
     setTimeOfDay(newValue);
   };
 
-  const handleAddReminder = () => {
-    if (reminder) {
-      setReminders([...reminders, reminder]);
-      setReminder('');
-    }
+  const handleModeChange = (icon) => {
+    setSelectedModeIcon(icon);
   };
 
   useEffect(() => {
@@ -73,6 +78,11 @@ const HomeScreen = () => {
 
   const backgroundColor = getBackgroundColor(timeOfDay);
   const suggestion = getSuggestionForTimeOfDay(timeOfDay);
+  const songPlayingText = getSongPlayingText(timeOfDay);
+
+  const textColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#964B00' : '#333'; 
+  const iconColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#964B00' : '#333'; 
+  const sliderColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#964B00' : 'black';
 
   return (
     <Box 
@@ -88,14 +98,14 @@ const HomeScreen = () => {
         position: 'relative'
       }}
     >
-      <Typography  variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom sx={{ color: textColor }}>
         HomeZafe
       </Typography>
       
       <SelfImprovementIcon 
         sx={{ 
           fontSize: 40, 
-          color: '#333', 
+          color: iconColor, 
           marginBottom: 1,
           marginTop: 0.1 
         }} 
@@ -103,7 +113,7 @@ const HomeScreen = () => {
 
       {/* Time of Day Slider */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '60%', maxWidth: '300px', marginBottom: 3 }}>
-        <WbSunnyIcon />
+        <WbSunnyIcon sx={{ color: iconColor }} />
         <Slider 
           value={timeOfDay} 
           onChange={handleSliderChange} 
@@ -112,31 +122,22 @@ const HomeScreen = () => {
           step={50}
           sx={{
             flex: 1,
-            color: 'black', 
+            color: sliderColor, 
             '& .MuiSlider-thumb': {
-              backgroundColor: 'black', 
+              backgroundColor: sliderColor, 
             },
             '& .MuiSlider-track': {
-              backgroundColor: 'black', 
+              backgroundColor: sliderColor, 
             },
             '& .MuiSlider-rail': {
               backgroundColor: '#ccc',
             },
           }}
         />
-        <NightlightIcon />
+        <NightlightIcon sx={{ color: iconColor }} />
       </Box>
       
       {/* Zone Adjusters Buttons */}
-      <Typography sx={{ 
-          position: 'absolute', 
-          top: 110, 
-          right: 255, 
-          display: 'flex', 
-          gap: 4 
-        }} variant="h6" gutterBottom>
-        Zone Adjusters
-        </Typography>
       <Box 
         sx={{ 
           position: 'absolute', 
@@ -147,6 +148,7 @@ const HomeScreen = () => {
         }}
       >
         <IconButton 
+          onClick={() => handleModeChange(<LaptopChromebookRoundedIcon />)}
           sx={{ 
             backgroundColor: '#FFB6C1', 
             borderRadius: '50%',
@@ -158,6 +160,7 @@ const HomeScreen = () => {
           <LaptopChromebookRoundedIcon />
         </IconButton>
         <IconButton 
+          onClick={() => handleModeChange(<SelfImprovementIcon />)}
           sx={{ 
             backgroundColor: '#FFD700', 
             borderRadius: '50%', 
@@ -169,6 +172,7 @@ const HomeScreen = () => {
           <SelfImprovementIcon />
         </IconButton>
         <IconButton 
+          onClick={() => handleModeChange(<CleaningServicesRoundedIcon />)}
           sx={{ 
             backgroundColor: '#FF6347', 
             borderRadius: '50%', 
@@ -186,33 +190,19 @@ const HomeScreen = () => {
         sx={{ 
           position: 'absolute', 
           backgroundColor: backgroundColor,
-          top: 80, 
+          top: 120, 
           left: 140, 
           width: '300px', 
           textAlign: 'center', 
           padding: 0.5,
-          
         }}
       >
-        <Typography variant="h6" gutterBottom>
-        Daily Routine Suggestions
+        <Typography variant="h6" gutterBottom sx={{ color: textColor }}>
+          Daily Routine Suggestions
         </Typography>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" gutterBottom sx={{ color: textColor }}>
           {suggestion}
         </Typography>
-        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center', marginTop: 2 }}>
-          
-          <IconButton onClick={handleAddReminder} color="primary">
-            <NotificationsIcon />
-          </IconButton>
-        </Box>
-        <Box sx={{ marginTop: 2 }}>
-          {reminders.map((rem, index) => (
-            <Typography key={index} variant="body2" sx={{ textAlign: 'left', marginTop: 1 }}>
-              - {rem}
-            </Typography>
-          ))}
-        </Box>
       </Card>
 
       <Grid container spacing={2} sx={{ marginTop: 2 }}>
@@ -230,11 +220,11 @@ const HomeScreen = () => {
                     {zone.status}
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1 }}>
-                    {zone.icons.map((icon, idx) => (
-                      <IconButton key={idx} sx={{ color: '#333' }}>
-                        {icon}
+                    {selectedModeIcon && (
+                      <IconButton sx={{ color: '#333' }}>
+                        {selectedModeIcon}
                       </IconButton>
-                    ))}
+                    )}
                   </Box>
                 </CardContent>
               </Card>
@@ -244,15 +234,26 @@ const HomeScreen = () => {
       </Grid>
 
       {/* Song Playing Section */}
-      <Box sx={{ marginTop: 4 }}>
-        <Typography variant="body1">
-          Song Playing:
+      <Card sx={{ marginTop: 4,
+        backgroundColor: backgroundColor,
+        width: '340px', 
+        textAlign: 'center', 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        gap: 1, 
+        padding: 1 }}>
+        <Typography variant="body1" sx={{ color: textColor }}>
+          {songPlayingText}
         </Typography>
-        <Typography variant="body2">
-          “Sexual Healing” by Marvin Gaye
-        </Typography>
-      </Box>
-    </Box>
+        <IconButton sx={{ color: iconColor }}>
+          <VolumeUpRoundedIcon />
+        </IconButton>
+        <IconButton sx={{ color: iconColor }}>
+          <PauseRoundedIcon />
+        </IconButton>
+      </Card>
+    </Box>  
   );
 };
 
