@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Card, CardContent, Typography, IconButton, Grid, Slider } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, Card, CardContent, Typography, IconButton, Grid, Slider, Button } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { lighten } from '@mui/system';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import NightlightIcon from '@mui/icons-material/Nightlight';  
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
@@ -33,7 +34,7 @@ const getBackgroundColor = (timeOfDay) => {
   if (timeOfDay === 0) {
     return '#FFEBB8'; // Morning
   } else if (timeOfDay === 50) {
-    return '#ADD8E6'; // Midday
+    return '#87CEEB'; // Midday
   } else {
     return '#00468B'; // Night
   }
@@ -49,7 +50,6 @@ const getSuggestionForTimeOfDay = (timeOfDay) => {
   }
 };
 
-// New function to get the song playing message based on time of day
 const getSongPlayingText = (timeOfDay) => {
   if (timeOfDay === 0) {
     return 'Now Playing: Feel Good Morning';
@@ -60,9 +60,11 @@ const getSongPlayingText = (timeOfDay) => {
   }
 };
 
-const HomeScreen = () => {
+const HomeScreen = ({ activities }) => {
   const [timeOfDay, setTimeOfDay] = useState(getCurrentTimeOfDay());
   const [selectedModeIcon, setSelectedModeIcon] = useState(null);
+  const [zoneIcons, setZoneIcons] = useState({});
+  const navigate = useNavigate();
 
   const handleSliderChange = (event, newValue) => {
     setTimeOfDay(newValue);
@@ -70,6 +72,13 @@ const HomeScreen = () => {
 
   const handleModeChange = (icon) => {
     setSelectedModeIcon(icon);
+  };
+
+  const handleActivateActivity = (roomName) => {
+    setZoneIcons((prev) => ({
+      ...prev,
+      [roomName]: <SelfImprovementIcon />, // Change to the relax icon
+    }));
   };
 
   useEffect(() => {
@@ -83,6 +92,8 @@ const HomeScreen = () => {
   const textColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#964B00' : '#333'; 
   const iconColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#964B00' : '#333'; 
   const sliderColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#964B00' : 'black';
+
+  const currentActivity = activities.find(activity => activity.timeOfDay === timeOfDay);
 
   return (
     <Box 
@@ -184,7 +195,7 @@ const HomeScreen = () => {
           <CleaningServicesRoundedIcon />
         </IconButton>
       </Box>
-
+      
       {/* Personalized Daily Routine Suggestions */}
       <Card 
         sx={{ 
@@ -209,22 +220,24 @@ const HomeScreen = () => {
         {zones.map((zone, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
             <Link to={zone.path} style={{ textDecoration: 'none' }}>
-              <Card 
-                sx={{ backgroundColor: zone.color, color: '#333', borderRadius: 2 }}
-              >
+              <Card sx={{ backgroundColor: zone.color, color: '#333', borderRadius: 2 }}>
                 <CardContent>
-                  <Typography variant="h6" sx={{ marginBottom: 1 }}>
-                    {zone.name}
-                  </Typography>
-                  <Typography variant="body2" sx={{ marginBottom: 2 }}>
-                    {zone.status}
-                  </Typography>
-                  <Box sx={{ display: 'flex', gap: 1 }}>
-                    {selectedModeIcon && (
-                      <IconButton sx={{ color: '#333' }}>
-                        {selectedModeIcon}
-                      </IconButton>
-                    )}
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <Box>
+                      <Typography variant="h6" sx={{ marginBottom: 1 }}>
+                        {zone.name}
+                      </Typography>
+                      <Typography variant="body2" sx={{ marginBottom: 2 }}>
+                        {zone.status}
+                      </Typography>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                      {zoneIcons[zone.name] && (
+                        <IconButton sx={{ color: '#333' }}>
+                          {zoneIcons[zone.name]}
+                        </IconButton>
+                      )}
+                    </Box>
                   </Box>
                 </CardContent>
               </Card>
@@ -233,26 +246,79 @@ const HomeScreen = () => {
         ))}
       </Grid>
 
-      {/* Song Playing Section */}
-      <Card sx={{ marginTop: 4,
-        backgroundColor: backgroundColor,
-        width: '340px', 
-        textAlign: 'center', 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        gap: 1, 
-        padding: 1 }}>
-        <Typography variant="body1" sx={{ color: textColor }}>
-          {songPlayingText}
-        </Typography>
-        <IconButton sx={{ color: iconColor }}>
-          <VolumeUpRoundedIcon />
-        </IconButton>
-        <IconButton sx={{ color: iconColor }}>
-          <PauseRoundedIcon />
-        </IconButton>
-      </Card>
+
+      <Box 
+        sx={{ 
+          display: 'flex', 
+          flexDirection: 'row', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          gap: 10,
+          marginTop: 4
+        }}
+      >
+        {/* Display current activity if it matches the time of day */}
+        {currentActivity && (
+        <Card sx={{ 
+          backgroundColor: backgroundColor, 
+          padding: 1, 
+          textAlign: 'center', 
+          width: '350px',
+          color: textColor,
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'space-between'
+        }}>
+          <Box>
+            <Typography variant="h6">StressFree Activity:</Typography>
+            <Typography variant="h7">{currentActivity.activity}</Typography>
+            <Typography variant="body2">Room: {currentActivity.room}</Typography>
+          </Box>
+          <Button 
+            onClick={() => handleActivateActivity(currentActivity.room)} 
+            sx={{ color: textColor }}
+          >
+            Activate
+          </Button>
+        </Card>
+        )}
+
+        {/* Song Playing Section */}
+        <Card sx={{ 
+          backgroundColor: backgroundColor,
+          width: '340px', 
+          textAlign: 'center', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          gap: 1, 
+          padding: 1 
+        }}>
+          <Typography variant="body1" sx={{ color: textColor }}>
+            {songPlayingText}
+          </Typography>
+          <IconButton sx={{ color: iconColor }}>
+            <VolumeUpRoundedIcon />
+          </IconButton>
+          <IconButton sx={{ color: iconColor }}>
+            <PauseRoundedIcon />
+          </IconButton>
+        </Card>
+
+        {/* Button to navigate to the stress-free calendar */}
+        <Button 
+          variant="contained" 
+          onClick={() => navigate('/stress-free-calendar')} 
+          sx={{ 
+            backgroundColor: backgroundColor,
+            '&:hover': { backgroundColor: lighten(backgroundColor, 0.2) },
+            height: 'fit-content',
+            color: textColor
+          }}
+        > 
+          Open Stress-Free Calendar
+        </Button>
+      </Box>
     </Box>  
   );
 };
