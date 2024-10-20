@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Card, CardContent, Typography, IconButton, Grid, Slider, Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { lighten } from '@mui/system';
-import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import { WbTwilight } from '@mui/icons-material';
 import NightlightIcon from '@mui/icons-material/Nightlight';  
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
@@ -77,14 +77,13 @@ const HomeScreen = ({ activities }) => {
   const handleActivateActivity = (roomName) => {
     setZoneIcons((prev) => ({
       ...prev,
-      [roomName]: <SelfImprovementIcon />, // Change to the relax icon
+      [roomName]: <SelfImprovementIcon />, 
     }));
   };
 
   useEffect(() => {
     setTimeOfDay(getCurrentTimeOfDay());
   }, []);
-
   const backgroundColor = getBackgroundColor(timeOfDay);
   const suggestion = getSuggestionForTimeOfDay(timeOfDay);
   const songPlayingText = getSongPlayingText(timeOfDay);
@@ -93,7 +92,7 @@ const HomeScreen = ({ activities }) => {
   const iconColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#964B00' : '#333'; 
   const sliderColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#964B00' : 'black';
 
-  const currentActivity = activities.find(activity => activity.timeOfDay === timeOfDay);
+  const currentActivity = activities.find(activity => activity.activityTime === timeOfDay);
 
   return (
     <Box 
@@ -124,7 +123,7 @@ const HomeScreen = ({ activities }) => {
 
       {/* Time of Day Slider */}
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '60%', maxWidth: '300px', marginBottom: 3 }}>
-        <WbSunnyIcon sx={{ color: iconColor }} />
+        <WbTwilight sx={{ color: iconColor, fontSize: 35 }} />
         <Slider 
           value={timeOfDay} 
           onChange={handleSliderChange} 
@@ -145,7 +144,7 @@ const HomeScreen = ({ activities }) => {
             },
           }}
         />
-        <NightlightIcon sx={{ color: iconColor }} />
+        <NightlightIcon sx={{ color: iconColor, fontSize: 30 }} />
       </Box>
       
       {/* Zone Adjusters Buttons */}
