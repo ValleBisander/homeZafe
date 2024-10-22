@@ -14,6 +14,7 @@ import DesignThinking from './ProjectComponents/DesignThinking';
 import References from './ProjectComponents/Refrences';
 import StressFreeCalendar from './PrototypeComponents/StressFreeCalendar';
 import ZoneAdjustInfo from './PrototypeComponents/ZoneAdjustInfo';
+import TimeOfDayInfo from './PrototypeComponents/timeOfDayInfo';
 
 function App() {
   const [activities, setActivities] = useState([]);
@@ -50,7 +51,10 @@ const AppRoutes = ({ activities, onSaveActivity }) => (
       path="zone-adjust-info"
       element={<ZoneAdjustInfo/>}
     />
-    
+    <Route
+      path="time-of-day-info"
+      element={<TimeOfDayInfo/>}
+    />
     
   </Routes>
 );

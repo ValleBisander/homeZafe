@@ -8,6 +8,7 @@ import { Nightlight } from '@mui/icons-material';
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
 import LaptopChromebookRoundedIcon from '@mui/icons-material/LaptopChromebookRounded';
+import BedtimeRoundedIcon from '@mui/icons-material/BedtimeRounded';
 import VolumeUpRoundedIcon from '@mui/icons-material/VolumeUpRounded';
 import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -201,7 +202,7 @@ const HomeScreen = ({ activities }) => {
               },
             }}
           />
-          <Nightlight sx={{ color: iconColor, fontSize: 30, transition: 'color 1s ease-in-out' }} />
+          <BedtimeRoundedIcon sx={{ color: iconColor, fontSize: 30, transition: 'color 1s ease-in-out', marginBottom: 1 }} />
         </Box>
         
       </Box>
@@ -221,7 +222,6 @@ const HomeScreen = ({ activities }) => {
           sx={{ display: 'flex',
             alignItems: 'center', 
             gap: 1,
-           
           }}>
           <IconButton onClick={() => navigate('/time-of-day-info')}>
             <InfoOutlinedIcon sx={{ color: iconColor, fontSize: 40, transition: 'color 1s ease-in-out' }} />

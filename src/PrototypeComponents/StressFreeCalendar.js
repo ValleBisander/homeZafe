@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Box, Typography, Select, MenuItem, Button, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
-import { WbSunny, Nightlight, WbTwilight, Spa, Book, MusicNote, FitnessCenter } from '@mui/icons-material';
+import { WbSunny, WbTwilight, Spa, Book, MusicNote, FitnessCenter } from '@mui/icons-material';
 import { Kitchen, Living, Bathroom, SportsEsports, Work, Bed } from '@mui/icons-material';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import { lighten, darken } from '@mui/system'; 
+import BedtimeRoundedIcon from '@mui/icons-material/BedtimeRounded';
 
 
 const getCurrentTimeOfDay = () => {
@@ -181,7 +182,7 @@ const StressFreeCalendar = ({ onSaveActivity }) => {
           <WbSunny sx={{ color: iconColor, marginRight: 1, fontSize: 24 }} /> Midday
         </MenuItem>
         <MenuItem value={100}>
-          <Nightlight sx={{ color: iconColor, marginRight: 1, fontSize: 24 }} /> Night
+          <BedtimeRoundedIcon sx={{ color: iconColor, marginRight: 1, fontSize: 24 }} /> Night
         </MenuItem>
       </Select>
 

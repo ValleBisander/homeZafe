@@ -4,7 +4,7 @@ import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
 import LaptopChromebookRoundedIcon from '@mui/icons-material/LaptopChromebookRounded';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
-import { darken, lighten } from '@mui/system';
+import { darken } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 
 const getCurrentTimeOfDay = () => {
@@ -34,7 +34,7 @@ const ZoneAdjustInfo = () => {
     const textColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#4A4A4A' : '#333';
     const iconColor = textColor;
     const navigate = useNavigate();
-
+  
     return (
         
         <Box
