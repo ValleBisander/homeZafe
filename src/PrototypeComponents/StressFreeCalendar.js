@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Box, Typography, Select, MenuItem, Button } from '@mui/material';
+import { Box, Typography, Select, MenuItem, Button, IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
-import { WbSunny, Nightlight, WbTwilight, Spa, Book, MusicNote, FitnessCenter, SelfCare } from '@mui/icons-material';
+import { WbSunny, Nightlight, WbTwilight, Spa, Book, MusicNote, FitnessCenter } from '@mui/icons-material';
 import { Kitchen, Living, Bathroom, SportsEsports, Work, Bed } from '@mui/icons-material';
-import { lighten } from '@mui/system';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import { lighten, darken } from '@mui/system'; 
+
 
 const getCurrentTimeOfDay = () => {
   const hour = new Date().getHours();
@@ -21,7 +23,7 @@ const getBackgroundColor = (timeOfDay) => {
   if (timeOfDay === 0) {
     return '#FFEBB8'; // Morning
   } else if (timeOfDay === 50) {
-    return '#87CEEB'; // Midday
+    return '#E0FFFF'; // Midday
   } else {
     return '#00468B'; // Night
   }
@@ -43,7 +45,7 @@ const StressFreeCalendar = ({ onSaveActivity }) => {
   };
 
   const backgroundColor = getBackgroundColor(timeOfDay);
-  const textColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#964B00' : '#333';
+  const textColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#4A4A4A' : '#333';
   const iconColor = textColor;
 
   const selectStyle = {
@@ -52,10 +54,10 @@ const StressFreeCalendar = ({ onSaveActivity }) => {
     color: textColor,
     '& .MuiSelect-outlined': {
       backgroundColor: lighten(backgroundColor, 0.1),
-      borderRadius: '8px',
+      borderRadius: '9px',
       borderColor: textColor,
       '&:hover': {
-        backgroundColor: lighten(backgroundColor, 0.4),
+        backgroundColor: lighten(backgroundColor, 0.3)
       },
     },
     '& .MuiOutlinedInput-notchedOutline': {
@@ -97,19 +99,36 @@ const StressFreeCalendar = ({ onSaveActivity }) => {
         transition: 'background-color 0.5s ease-in-out'
       }}
     >
+      <IconButton 
+            onClick={() => navigate('/prototype-home')} 
+            sx={{
+            position:'absolute',
+            marginRight: 170,
+            marginBottom: 110,
+            backgroundColor: iconColor,
+            '&:hover': { backgroundColor: darken(iconColor, 0.3) }
+            }}>
+
+            <ArrowBackRoundedIcon sx={{
+              color: backgroundColor,
+              fontSize: 50, 
+              transition: 'color 1s ease-in-out', 
+            }}/>
+        </IconButton>    
+
       {/* Logo and Icon */}
-      <Typography variant="h4" gutterBottom sx={{ color: textColor }}>
+      <Typography variant="h4" gutterBottom sx={{ color: textColor, fontWeight: 'Bold' }}>
         HomeZafe
       </Typography>
       <SelfImprovementIcon 
         sx={{ 
           fontSize: 40, 
           color: iconColor, 
-          marginBottom: 3 
+          marginBottom: 10
         }} 
       />
 
-      <Typography variant="h5" gutterBottom sx={{ color: textColor }}>
+      <Typography variant="h5" gutterBottom sx={{ color: textColor, fontWeight: 'Bold' }}>
         Plan Your Relaxation
       </Typography>
       
@@ -154,6 +173,7 @@ const StressFreeCalendar = ({ onSaveActivity }) => {
         sx={selectStyle}
         MenuProps={menuProps}
       >
+        <MenuItem value="" disabled>Select Time Of Day</MenuItem>
         <MenuItem value={0}>
           <WbTwilight sx={{ color: iconColor, marginRight: 1, fontSize: 24 }} /> Morning
         </MenuItem>
@@ -170,9 +190,10 @@ const StressFreeCalendar = ({ onSaveActivity }) => {
         variant="contained" 
         onClick={handleSave} 
         sx={{ 
-          backgroundColor: backgroundColor, 
-          '&:hover': { backgroundColor: lighten(backgroundColor, 0.2) }, 
-          color: textColor 
+          backgroundColor: lighten(backgroundColor, 0.1), 
+          '&:hover': { backgroundColor: lighten(backgroundColor, 0.3) }, 
+          color: textColor,
+          fontWeight: 'Bold' 
         }}
       >
         Save Activity

@@ -13,6 +13,7 @@ import Background from './ProjectComponents/Background';
 import DesignThinking from './ProjectComponents/DesignThinking';
 import References from './ProjectComponents/Refrences';
 import StressFreeCalendar from './PrototypeComponents/StressFreeCalendar';
+import ZoneAdjustInfo from './PrototypeComponents/ZoneAdjustInfo';
 
 function App() {
   const [activities, setActivities] = useState([]);
@@ -45,6 +46,12 @@ const AppRoutes = ({ activities, onSaveActivity }) => (
       path="/stress-free-calendar" 
       element={<StressFreeCalendar onSaveActivity={onSaveActivity} />} 
     />
+    <Route
+      path="zone-adjust-info"
+      element={<ZoneAdjustInfo/>}
+    />
+    
+    
   </Routes>
 );
 
