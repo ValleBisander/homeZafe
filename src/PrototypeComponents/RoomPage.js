@@ -1,73 +1,65 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Card, CardContent, Typography, IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
 import LaptopChromebookRoundedIcon from '@mui/icons-material/LaptopChromebookRounded';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import { darken } from '@mui/system';
-import { useNavigate } from 'react-router-dom';
+import { Kitchen, Living, Bathroom, SportsEsports, Work, Bed } from '@mui/icons-material';
 
-const getCurrentTimeOfDay = () => {
-    const hour = new Date().getHours();
-    if (hour >= 5 && hour < 11) {
-      return 0; // Morning
-    } else if (hour >= 11 && hour < 17) {
-      return 50; // Midday
-    } else {
-      return 100; // Night
+const RoomPage = ({ roomName, backgroundColor }) => {
+  const navigate = useNavigate();
+
+  const getTextColor = (bgColor) => {
+   
+    if (bgColor === '#FFD700') return '#000'; 
+    if (bgColor === '#FF6347') return '#FFF'; 
+    return '#333'; 
+  };
+  const getRoomIcon = (roomName) => {
+    switch (roomName) {
+      case 'Kitchen':
+        return <Kitchen sx={{ fontSize: 50, color: textColor }} />;
+      case 'Living Room':
+        return <Living sx={{ fontSize: 50, color: textColor }} />;
+      case 'Bathroom':
+        return <Bathroom sx={{ fontSize: 50, color: textColor }} />;
+      case 'Gaming Room':
+        return <SportsEsports sx={{ fontSize: 50, color: textColor }} />;
+      case 'Office':
+        return <Work sx={{ fontSize: 50, color: textColor }} />;
+      case 'Bedroom':
+        return <Bed sx={{ fontSize: 50, color: textColor }} />;
+      default:
+        return null;
     }
   };
-  
-  const getBackgroundColor = (timeOfDay) => {
-    if (timeOfDay === 0) {
-      return '#FFEBB8'; // Morning
-    } else if (timeOfDay === 50) {
-      return '#E0FFFF'; // Midday
-    } else {
-      return '#00468B'; // Night
-    }
-  };
 
-const ZoneAdjustInfo = () => {
-    const [timeOfDay] = useState(getCurrentTimeOfDay());
-    const backgroundColor = getBackgroundColor(timeOfDay);
-    const textColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#4A4A4A' : '#333';
-    const iconColor = textColor;
-    const navigate = useNavigate();
-  
-    return (
-        
-        <Box
+  const textColor = getTextColor(backgroundColor);
+
+  return (
+    <Box
         sx={{
-            padding: 4,
-            backgroundColor: backgroundColor,
-            minHeight: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+        padding: 4,
+        backgroundColor: backgroundColor,
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         }}
-        >
-        <IconButton 
-            onClick={() => navigate('/prototype-home')} 
-            sx={{
-            position:'absolute',
-            marginRight: 170,
-            marginBottom: 110,
-            backgroundColor: iconColor,
-            '&:hover': { backgroundColor: darken(iconColor, 0.3) }
-            }}>
-
-            <ArrowBackRoundedIcon sx={{
-              color: backgroundColor,
-              fontSize: 50, 
-              transition: 'color 1s ease-in-out', 
-            }}/>
-        </IconButton>    
-        <Typography variant="h4" gutterBottom sx={{ marginBottom: 3, color: textColor, fontWeight: 'Bold' }}>
-            Zone Adjusters Information
+    >
+        {/* Title */}
+        <Typography variant="h4" gutterBottom sx={{ color: textColor, fontWeight: 'bold', marginTop: 3, marginBottom: 3 }}>
+        {roomName}
         </Typography>
-        
+
+        {/* Dynamic Room Icon based on the roomName */}
+        <Box sx={{ marginBottom: 6}}>
+            {getRoomIcon(roomName)}
+        </Box>
+
+        {/* Info Card for each mode */}
         <Card sx={{ maxWidth: 500, marginBottom: 3, padding: 2, backgroundColor: '#333'}}>
             <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton sx={{ backgroundColor: '#FFB6C1', marginRight: 2, '&:hover': { backgroundColor: darken('#FFB6C1', 0.3) } }}>
@@ -115,8 +107,29 @@ const ZoneAdjustInfo = () => {
             </Box>
             </CardContent>
         </Card>
-        </Box>
-    );
+
+        {/* Redirect to Home after clicking a zone adjuster */}
+        <IconButton
+            onClick={() => navigate('/prototype-home')}
+            sx={{
+                position: 'absolute',
+                marginRight: 170,
+                marginTop: 5,
+                backgroundColor: '#333',
+                '&:hover': { backgroundColor: darken('#333', 0.3) },
+            }}
+        >
+            <ArrowBackRoundedIcon
+                sx={{
+                    color: backgroundColor,
+                    fontSize: 50,
+                    transition: 'color 1s ease-in-out',
+                }}
+            />
+        </IconButton>
+
+    </Box>
+  );
 };
 
-export default ZoneAdjustInfo;
+export default RoomPage;

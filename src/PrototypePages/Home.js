@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
+
+// Material-UI Components
 import { Box, Card, CardContent, Typography, IconButton, Grid, Slider, Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import { lighten, darken, color } from '@mui/system';
-import {  WbTwilight } from '@mui/icons-material';
-import { WbSunny } from '@mui/icons-material';
-import { Nightlight } from '@mui/icons-material';
+
+// Material-UI Icons
+import { WbTwilight, WbSunny, Nightlight } from '@mui/icons-material';
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import CleaningServicesRoundedIcon from '@mui/icons-material/CleaningServicesRounded';
 import LaptopChromebookRoundedIcon from '@mui/icons-material/LaptopChromebookRounded';
@@ -14,13 +14,20 @@ import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 import { Kitchen, Living, Bathroom, SportsEsports, Work, Bed } from '@mui/icons-material';
- 
+import { Spa, Book, MusicNote, FitnessCenter } from '@mui/icons-material';
 
-const zones = [
+// Routing
+import { Link, useNavigate } from 'react-router-dom';
+
+// MUI System 
+import { darken } from '@mui/system';
+
+
+export const rooms = [
   { name: 'Living Room', color: '#87CEEB', path: '/living-room', icon: <Living /> },
   { name: 'Kitchen', color: '#98FB98', path: '/kitchen', icon: <Kitchen /> },
-  { name: 'Bathroom', color: '#FFD700', path: '/bathroom', icon: <Bathroom /> },
-  { name: 'Gaming Room', color: '#FFD700', path: '/gaming-room', icon: <SportsEsports /> },
+  { name: 'Bathroom', color: '#F1CBFF', path: '/bathroom', icon: <Bathroom /> },
+  { name: 'Gaming Room', color: '#7f4aa4', path: '/gaming-room', icon: <SportsEsports /> },
   { name: 'Office', color: '#FFB6C1', path: '/office', icon: <Work /> },
   { name: 'Bedroom', color: '#FF6347', path: '/bedroom', icon: <Bed /> },
 ];
@@ -77,6 +84,24 @@ const getTimeOfDayIcon = (timeOfDay, iconColor) => {
   }
 };
 
+const getActivityIcon = (activity, iconColor) => {
+  switch (activity) {
+    case 'Meditation':
+      return <SelfImprovementIcon sx={{ fontSize: 30, color: iconColor }} />;
+    case 'Yoga':
+      return <Spa sx={{ fontSize: 30, color: iconColor }} />;
+    case 'Reading':
+      return <Book sx={{ fontSize: 30, color: iconColor }} />;
+    case 'Listening to Music':
+      return <MusicNote sx={{ fontSize: 30, color: iconColor }} />;
+    case 'Light Stretching':
+      return <FitnessCenter sx={{ fontSize: 30, color: iconColor }} />;
+    default:
+      return null;
+  }
+};
+
+
 const HomeScreen = ({ activities }) => {
   const [timeOfDay, setTimeOfDay] = useState(getCurrentTimeOfDay());
   const [selectedModeIcon, setSelectedModeIcon] = useState(null);
@@ -90,11 +115,13 @@ const HomeScreen = ({ activities }) => {
   const handleModeChange = (icon) => {
     setSelectedModeIcon(icon);
   };
+  
 
-  const handleActivateActivity = (roomName) => {
+  const handleActivateActivity = (roomName, activity) => {
+    const activityIcon = getActivityIcon(activity);
     setZoneIcons((prev) => ({
       ...prev,
-      [roomName]: <SelfImprovementIcon />, 
+      [roomName]: activityIcon, 
     }));
   };
 
@@ -294,21 +321,21 @@ const HomeScreen = ({ activities }) => {
 
       {/* Rooms */}
       <Grid container spacing={2} sx={{ marginTop: 1 }}>
-        {zones.map((zone, index) => (
+        {rooms.map((room, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
-            <Link to={zone.path} style={{ textDecoration: 'none' }}>
+            <Link to={room.path} style={{ textDecoration: 'none' }}>
               <Card sx={{ 
-                backgroundColor: zone.color, color: '#333', 
+                backgroundColor: room.color, color: '#333', 
                 borderRadius: 2,
                 transition: 'background-color 0.2s ease-in-out',
-                '&:hover': { backgroundColor: darken(zone.color, 0.1) }, }}>
+                '&:hover': { backgroundColor: darken(room.color, 0.1) }, }}>
                 <CardContent>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Box sx={{ marginRight: 1, color: '#333' }}>
-                      {zone.icon}
+                      {room.icon}
                     </Box>
                     <Typography variant="h6" sx={{ marginBottom: 1, fontWeight: 'bold' }}>
-                      {zone.name}
+                      {room.name}
                     </Typography>
                   </Box>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -321,9 +348,9 @@ const HomeScreen = ({ activities }) => {
                           {selectedModeIcon}
                         </IconButton>
                       ) : (
-                        zoneIcons[zone.name] && (
+                        zoneIcons[room.name] && (
                           <IconButton sx={{ color: '#333' }}>
-                            {zoneIcons[zone.name]}
+                            {zoneIcons[room.name]}
                           </IconButton>
                         )
                       )}
@@ -351,34 +378,44 @@ const HomeScreen = ({ activities }) => {
       >
         {/* Display current activity if it matches the time of day */}
         {currentActivity && (
-          <Card 
-            sx={{ 
-              backgroundColor: darken(backgroundColor, 0.05), 
-              padding: 1, 
-              textAlign: 'center', 
-              maxWidth: '320px',
-              maxHeight: '120px',
-              display: 'flex',
-              color: textColor,
-              transition: 'background-color 1s ease-in-out, color 1s ease-in-out', 
-              alignItems: 'center', 
-              justifyContent: 'space-between',
-              flex: 1 
+        <Card 
+          sx={{ 
+            backgroundColor: darken(backgroundColor, 0.05), 
+            padding: 1, 
+            textAlign: 'center', 
+            maxWidth: '320px',
+            maxHeight: '120px',
+            display: 'flex',
+            color: textColor,
+            transition: 'background-color 1s ease-in-out, color 1s ease-in-out', 
+            alignItems: 'center', 
+            justifyContent: 'space-between',
+            flex: 1 
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Box>
+              <Typography sx={{ fontWeight: 'bold' }} variant="h7">
+                StressFree Activity:
+              </Typography>
+              <Typography sx={{ fontWeight: 'bold' }} variant="body2">
+                Room: {currentActivity.room}
+              </Typography>
+            </Box>
+            {getActivityIcon(currentActivity.activity)}
+          </Box>
+          <Button 
+            onClick={() => handleActivateActivity(currentActivity.room, currentActivity.activity)} 
+            sx={{ color: '#FFFDD0', fontWeight: 'bold', backgroundColor: darken(backgroundColor, 0.5),
+              transition: 'background-color 1s ease-in-out, color 1s ease-in-out',
+              '&:hover': { backgroundColor: darken(backgroundColor, 0.2) }
             }}
           >
-            <Box>
-              <Typography sx={{ fontWeight: 'bold' }} variant="h7">StressFree Activity:</Typography>
-              <Typography sx={{ fontWeight: 'bold' }} variant="h8">{currentActivity.activity}</Typography>
-              <Typography sx={{ fontWeight: 'bold' }} variant="body2">Room: {currentActivity.room}</Typography>
-            </Box>
-            <Button 
-              onClick={() => handleActivateActivity(currentActivity.room)} 
-              sx={{ color: textColor, fontWeight: 'bold' }}
-            >
-              Activate
-            </Button>
-          </Card>
+            Activate
+          </Button>
+        </Card>
         )}
+
 
         {/* Song Playing Section */}
         <Card 
@@ -423,7 +460,8 @@ const HomeScreen = ({ activities }) => {
               color: textColor, 
               textAlign: 'center', 
               fontWeight: 'bold', 
-              lineHeight: '1.2' 
+              lineHeight: '1.2',
+              transition: 'color 1s ease-in-out'
             }}
           >
             Stress<br />

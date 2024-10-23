@@ -31,7 +31,6 @@ const getCurrentTimeOfDay = () => {
 const TimeOfDayInfo = () => {
     const [timeOfDay] = useState(getCurrentTimeOfDay());
     const backgroundColor = getBackgroundColor(timeOfDay);
-    const textColor = timeOfDay === 100 ? '#FFFDD0' : timeOfDay === 50 ? '#4A4A4A' : '#333';
     const navigate = useNavigate();
 
     return (
@@ -74,9 +73,9 @@ const TimeOfDayInfo = () => {
             </Typography>
 
             {/* Info Card for Zon Morning */}
-            <Card sx={{ maxWidth: 500, marginBottom: 3, padding: 2, backgroundColor: '#FFEBB8' }}>
+            <Card sx={{ maxWidth: 500, marginBottom: 3, padding: 2, backgroundColor: darken('#FFEBB8', 0.05) }}>
                 <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton sx={{ backgroundColor: '#FFEBB8', marginRight: 2 }}>
+                    <IconButton sx={{  marginRight: 2 }}>
                         <WbTwilight sx={{ fontSize: 40, color: '#333' }} />
                     </IconButton>
                     <Box>
@@ -94,13 +93,13 @@ const TimeOfDayInfo = () => {
             <Card sx={{ maxWidth: 500, marginBottom: 3, padding: 2, backgroundColor: '#E0FFFF' }}>
                 <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
                     <IconButton sx={{ backgroundColor: '#E0FFFF', marginRight: 2 }}>
-                        <WbSunny sx={{ fontSize: 40, color: '#333' }} />
+                        <WbSunny sx={{ fontSize: 40, color: '#4A4A4A' }} />
                     </IconButton>
                     <Box>
-                        <Typography sx={{ color: '#333', fontWeight: 'Bold' }} variant="h6" gutterBottom>
+                        <Typography sx={{ color: '#4A4A4A', fontWeight: 'Bold' }} variant="h6" gutterBottom>
                             Zone Midday
                         </Typography>
-                        <Typography sx={{ color: '#333' }} variant="body1">
+                        <Typography sx={{ color: '#4A4A4A' }} variant="body1">
                             Zone Midday is triggered when you usually leave the apartment. The curtains in your bedroom are closed, other curtains are opened, and the lighting is controlled by wall switches. This creates a stress-free environment by automating routine tasks and saving you time.
                         </Typography>
                     </Box>

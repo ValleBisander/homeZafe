@@ -15,8 +15,12 @@ import References from './ProjectComponents/Refrences';
 import StressFreeCalendar from './PrototypeComponents/StressFreeCalendar';
 import ZoneAdjustInfo from './PrototypeComponents/ZoneAdjustInfo';
 import TimeOfDayInfo from './PrototypeComponents/timeOfDayInfo';
+import RoomPage from './PrototypeComponents/RoomPage';
+import { rooms } from './PrototypePages/Home';
 
 function App() {
+  
+
   const [activities, setActivities] = useState([]);
 
   const handleSaveActivity = (newActivity) => {
@@ -55,6 +59,15 @@ const AppRoutes = ({ activities, onSaveActivity }) => (
       path="time-of-day-info"
       element={<TimeOfDayInfo/>}
     />
+
+    {/* Dynamically generating routes for each room */}
+    {rooms.map((room) => (
+      <Route
+        key={room.name}
+        path={room.path}
+        element={<RoomPage roomName={room.name} backgroundColor={room.color} />}
+      />
+    ))}
     
   </Routes>
 );

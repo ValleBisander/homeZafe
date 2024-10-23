@@ -35,7 +35,6 @@ const StressFreeCalendar = ({ onSaveActivity }) => {
   const [room, setRoom] = useState('');
   const [timeOfDay, setTimeOfDay] = useState(getCurrentTimeOfDay());
   const [activityTime, setActivityTime] = useState('');
-  const [activityIcon, setActivityIcon] = useState();
   const navigate = useNavigate();
 
   const handleSave = () => {
@@ -119,7 +118,7 @@ const StressFreeCalendar = ({ onSaveActivity }) => {
 
       {/* Logo and Icon */}
       <Typography variant="h4" gutterBottom sx={{ color: textColor, fontWeight: 'Bold' }}>
-        HomeZafe
+        StressFreeCalendar
       </Typography>
       <SelfImprovementIcon 
         sx={{ 
