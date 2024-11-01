@@ -42,8 +42,8 @@ const Overview = () => {
           </Typography>
           
           <img 
-            src="/PrototypeFigma.png" 
-            alt="Prototype Figma" 
+            src="/Night.png" 
+            alt="Night" 
             style={{ 
               width: '100%', 
               height: 'auto', 

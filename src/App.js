@@ -12,6 +12,9 @@ import Overview from './ProjectComponents/Overview';
 import Background from './ProjectComponents/Background';
 import DesignThinking from './ProjectComponents/DesignThinking';
 import References from './ProjectComponents/Refrences';
+import PitchPresentation from './ProjectComponents/PitchPresentation';
+import PitchVideo from './ProjectComponents/PitchVideo';
+import GenerativeAI from './ProjectComponents/GenerativeAi';
 import StressFreeCalendar from './PrototypeComponents/StressFreeCalendar';
 import ZoneAdjustInfo from './PrototypeComponents/ZoneAdjustInfo';
 import TimeOfDayInfo from './PrototypeComponents/timeOfDayInfo';
@@ -43,6 +46,9 @@ const AppRoutes = ({ activities, onSaveActivity }) => (
     <Route path="/background" element={<Background />} />
     <Route path="/design-thinking" element={<DesignThinking />} />
     <Route path="/references" element={<References />} />
+    <Route path="/pitch-presentation" element={<PitchPresentation />} />
+    <Route path="/pitch-video" element={<PitchVideo />} />
+    <Route path="/generative-AI" element={<GenerativeAI />} />
     <Route 
       path="/prototype-home" 
       element={<ProtHome activities={activities} />} 
